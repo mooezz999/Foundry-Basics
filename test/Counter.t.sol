@@ -6,18 +6,26 @@ import "../src/Counter.sol";
 
 contract CounterTest is Test {
     Counter public counter;
+
     function setUp() public {
-       counter = new Counter();
-       counter.setNumber(0);
+        counter = new Counter(10);
+        // counter.setNumber(0);
     }
 
     function testIncrement() public {
         counter.increment();
-        assertEq(counter.number(), 1);
+        assertEq(counter.number(), 11);
+        emit log_named_int("The value is: ", 11);
     }
 
-    function testSetNumber(uint256 x) public {
+    function testSetNumber(int x) public {
         counter.setNumber(x);
         assertEq(counter.number(), x);
+    }
+
+    function testGetCount() public {
+        int value = counter.getNumber();
+        assertEq(value, 10);
+        emit log_named_int("The value is: ", value);
     }
 }
